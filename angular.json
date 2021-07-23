@@ -24,6 +24,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/mitema.scss",
               "src/styles.css"
             ],
             "scripts": []
@@ -119,6 +120,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "SponsorAgentes"
+    }
+  },
+  "defaultProject": "SponsorAgentes",
+  "cli": {
+    "analytics": "84cd5ffa-de65-4014-b6a3-ee56ad8d312a"
+  }
 }

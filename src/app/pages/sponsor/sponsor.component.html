@@ -1,0 +1,51 @@
+<p>1 - Ingrese el rut, luego presione 'Buscar Rut' </p>
+<p>2 - Presione 'Agentes' para desplegar Sponsors </p>
+<p>3 - Al terminar de seleccionar los Sponsors presione 'Enviar' </p>
+<section>
+
+    <form>
+        <mat-form-field class="example-form-full-width" appearance="fill">
+            <mat-label>Rut</mat-label>
+            <input matInput id="rut" name="rut" placeholder="Ej. 12345678-9" #rut>
+        </mat-form-field>
+
+        <mat-form-field class="example-form-full-width" appearance="fill">
+            <mat-label>Secuencia rut</mat-label>
+            <input matInput id="secuencia" name="secuencia" placeholder="Ej. 2" #secuencia>
+        </mat-form-field>
+
+        <div class="example-button-row">
+            <button mat-stroked-button color="primary" (click)="BuscarRutButtonClick()">Buscar
+                Rut</button>
+            <button mat-stroked-button color="primary" (click)="AgentesButtonClick()">Agentes</button>
+            <button mat-stroked-button color="primary" disabled>Enviar</button>
+        </div>
+
+
+    </form>
+</section>
+
+
+<table width="100%" class="mat-elevation-z8">
+	<thead>
+		<tr>
+			
+			<th>codAgente</th>
+			<th>disponible</th>
+			<th>habilitado</th>
+			<th>rutCompletoAgente</th>
+			<th>nombreAgente</th>
+		</tr>
+
+	</thead>
+	<tbody>
+		<tr *ngFor="let n of listaAgentesSeleccionados">
+			
+			<td>{{n.codAgente}}</td>
+			<td>{{n.disponible}}</td>
+			<td>{{n.habilitado}}</td>
+			<td>{{n.rutCompletoAgente}}</td>
+			<td>{{n.nombreAgente}}</td>
+		</tr>
+	</tbody>
+</table>

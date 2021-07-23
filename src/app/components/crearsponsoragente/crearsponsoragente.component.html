@@ -1,0 +1,38 @@
+<div></div>
+<!-- &nbsp;&nbsp;
+&nbsp;&nbsp;<mat-form-field>
+  <mat-label>Nombre Aplicativo</mat-label>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="nombre aplicativo">
+</mat-form-field> -->
+
+<div>
+  &nbsp;&nbsp;<button mat-raised-button (click)="btnClickAgregar()">Nuevo</button>
+</div>
+<div>.</div>
+<div></div>
+<div class="mat-elevation-z8">
+  <table mat-table  [dataSource]="dataSource" matSort>
+    
+    <ng-container matColumnDef="rutCompletoAgente">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Rut Agente</th>
+      <td mat-cell *matCellDef="let element"> {{element.rutCompletoAgente}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="nombreAgente">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre Agente</th>
+      <td mat-cell *matCellDef="let element"> {{element.nombreAgente}} </td>
+    </ng-container>
+
+
+
+    <ng-container matColumnDef="codAgente">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Código Agente</th>
+      <td mat-cell *matCellDef="let element"> {{element.codAgente}} </td>
+    </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>

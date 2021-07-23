@@ -1,0 +1,45 @@
+<p>Seleccione solo las filas habilitadas, luego presione 'Listo'</p>
+
+
+<div class="row">
+	<div class="col-5">
+		<button (click)="ListoButtonClick()" mat-flat-button color="primary">Listo</button>
+	</div>
+	<div class="col-5">
+
+	</div>
+</div>
+
+<table width="100%" class="mat-elevation-z8">
+	<thead>
+		<tr>
+			<th>
+				<!-- custom checkbox-->
+				<input type="checkbox" [(ngModel)]="todosSeleccionados" [value]="-1"
+					(change)="onChangeSelector($event)">
+			</th>
+			<th>codAgente</th>
+			<th>disponible</th>
+			<th>habilitado</th>
+			<th>rutCompletoAgente</th>
+			<th>nombreAgente</th>
+		</tr>
+
+	</thead>
+	<tbody>
+		<tr *ngFor="let n of listaAgentes">
+			<td>
+				<!-- custom checkbox-->
+				<input type="checkbox" [value]="n.codAgente" [checked]="n.seleccionado" [disabled]="!n.habilitado"
+					(change)="onChangeSelector($event)">
+
+			</td>
+			<td>{{n.codAgente}}</td>
+			<td>{{n.disponible}}</td>
+			<td>{{n.habilitado}}</td>
+			<td>{{n.rutCompletoAgente}}</td>
+			<td>{{n.nombreAgente}}</td>
+		</tr>
+	</tbody>
+	<!-- // PAGINADOR // -->
+</table>

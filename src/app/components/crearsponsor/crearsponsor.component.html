@@ -1,0 +1,49 @@
+<mat-card class="example-card">
+
+
+
+    <form novalidate>
+        <mat-card>
+            <mat-card-content>
+                <mat-form-field style="width: 400px !important;">
+                    <mat-label>RUT Sponsor</mat-label>
+                    <input 
+                        #rutSponsor 
+                        matInput 
+                        spellcheck="false" 
+                        placeholder="Rut Sponsor" 
+                        (keyup)="onKeyRut($event)"
+                        id="rutSponsor" 
+                        name="rutSponsor" 
+                        required>
+                </mat-form-field>
+            </mat-card-content>
+
+            <mat-card-content>
+                <mat-form-field style="width: 400px !important;">
+                    <mat-label></mat-label>
+                    <input 
+                        #secuenciaRut 
+                        matInput 
+                        spellcheck="false" 
+                        placeholder="Secuencia Rut" 
+                        (keyup)="onKeySecuenciaRut($event)"
+                        id="secuenciaRut" 
+                        name="secuenciaRut" 
+                        required>
+                </mat-form-field>
+            </mat-card-content>
+
+            <button mat-raised-button color="primary" type="button" (click)="BuscarRutSponsor()">Buscar</button>
+        </mat-card>
+
+
+        <mat-card-content>
+            <button mat-raised-button color="primary" [disabled]="!formGroupSponsor.valid"
+                type="submit">Guardar</button>
+            <button mat-raised-button color="primary" (click)="openDialog()" type="button">Agentes</button>
+        </mat-card-content>
+
+    </form>
+
+</mat-card>
