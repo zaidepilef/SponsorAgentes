@@ -16,6 +16,27 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 
 export class AgentesTablaComponent implements OnInit {
 
+	ElementData: any[] = [];
+	displayedColumns: string[] = [
+		'select',
+		'seleccionado',
+		'codAgente',
+		'disponible',
+		'habilitado',
+		'nombreAgente',
+		'rutAgente',
+		'dvAgente',
+		'rutCompletoAgente',
+	];
+
+	agentesDataSource = new MatTableDataSource<any>(this.ElementData);
+	@ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+	@ViewChild(MatSort, { static: true }) sort: MatSort;
+	selection = new SelectionModel<any>(true, []);
+
+
+
+	/// anterior
 	listaAgentes: AgenteModel[] = []; // será los mismo que viene de API
 	listaAgentesSeleccionados: AgenteModel[] = []; // será los mismo que viene de API
 	todosSeleccionados: boolean;
@@ -36,8 +57,8 @@ export class AgentesTablaComponent implements OnInit {
 	ngOnInit(): void {
 		console.log('this.data : ', this.data)
 		//this.rut = this.data.
-		//this.agentesDataSource.paginator = this.paginator;
-		//this.agentesDataSource.sort = this.sort;
+		this.agentesDataSource.paginator = this.paginator;
+		this.agentesDataSource.sort = this.sort;
 		this.getAllReports()
 	}
 
@@ -47,8 +68,12 @@ export class AgentesTablaComponent implements OnInit {
 	}
 
 	public getAllReports() {
-		//let resp = this.sponsorAgenteService.ListarAgentes(1);
-		//resp.subscribe(report => this.agentesDataSource.data = report as AgenteModel[])
+
+		
+		let resp = this.sponsorAgenteService.ListarAgentes(1);
+		resp.subscribe(report => this.agentesDataSource.data = report as AgenteModel[])
+
+		//anterior
 		// ToDo: recorrer a mano esto para los checkCustom
 		// lista sucia - lista limpia
 		this.sponsorAgenteService.ListarAgentes(1).subscribe((res) => {
