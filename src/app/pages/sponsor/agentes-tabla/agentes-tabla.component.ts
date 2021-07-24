@@ -1,3 +1,4 @@
+import { Router } from "@angular/router"
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
@@ -19,9 +20,8 @@ export class AgentesTablaComponent implements OnInit {
 	ElementData: any[] = [];
 	displayedColumns: string[] = [
 		'select',
-		'seleccionado',
+
 		'codAgente',
-		'disponible',
 		'habilitado',
 		'nombreAgente',
 		'rutAgente',
@@ -48,7 +48,8 @@ export class AgentesTablaComponent implements OnInit {
 	constructor(
 		public dialogRef: MatDialogRef<AgentesTablaComponent>,
 		@Inject(MAT_DIALOG_DATA) public data: any,
-		private sponsorAgenteService: SponsoragenteService
+		private sponsorAgenteService: SponsoragenteService,
+		private router: Router
 	) {
 		this.rut = data.rutIn
 		this.secuencia = data.secuenciaIn
@@ -62,14 +63,9 @@ export class AgentesTablaComponent implements OnInit {
 		this.getAllReports()
 	}
 
-	onNoClick(): void {
-		console.log('y ahora me voy!!!')
-		this.dialogRef.close(this.listaAgentesSeleccionados)
-	}
+	
 
 	public getAllReports() {
-
-		
 		let resp = this.sponsorAgenteService.ListarAgentes(1);
 		resp.subscribe(report => this.agentesDataSource.data = report as AgenteModel[])
 
@@ -81,18 +77,18 @@ export class AgentesTablaComponent implements OnInit {
 		});
 	}
 
-
-	isAllSelected() {
-		//const numSelected = this.selection.selected.length;
-		//const numRows = this.agentesDataSource.data.length;
-		//return numSelected === numRows;
+	// si me voy sin hacer nada
+	onNoClick(): void {
+		console.log('y ahora me voy!!!')
+		this.dialogRef.close([])
 	}
 
-
-	/** Selects all rows if they are not all selected; otherwise clear selection. */
-	masterToggle() {
-		//this.isAllSelected() ? this.selection.clear() : this.agentesDataSource.data.forEach(row => this.selection.select(row));
+	CerrarButtonClick(): void {
+		console.log('y ahora me voy!!!')
+		this.dialogRef.close([])
+		this.router.navigate(['/home'])
 	}
+
 
 	ListoButtonClick() {
 		//this.selection.selected.forEach(s => console.log(s.name));
@@ -105,14 +101,14 @@ export class AgentesTablaComponent implements OnInit {
 		console.log('arrayub : ', arrayub)
 		if (arrayub.length > 0) {
 			this.listaAgentesSeleccionados = arrayub
-			//this.onNoClick()
+			this.dialogRef.close(this.listaAgentesSeleccionados)
 		}
-
 	}
 
 
 	/// cambi estado en la lsista
 	onChangeSelector($event) {
+
 		const agente = $event.target.value;
 		const isChecked = $event.target.checked;
 		console.log('agente: ', agente)
@@ -126,15 +122,19 @@ export class AgentesTablaComponent implements OnInit {
 				this.todosSeleccionados = false
 				return e
 			}
+
 			if (agente == -1) {
-				e.seleccionado = this.todosSeleccionados
+				if (e.habilitado) {
+					e.seleccionado = this.todosSeleccionados
+				}
 				return e
 			}
+
 			return e
 		});
 
-
 		console.log('listaAgentes : ', this.listaAgentes)
+		this.agentesDataSource.data = this.listaAgentes as AgenteModel[]
 	}
 
 }

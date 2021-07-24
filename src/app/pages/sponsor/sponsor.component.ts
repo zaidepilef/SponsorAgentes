@@ -105,6 +105,9 @@ export class SponsorComponent implements OnInit {
 
 	}
 
+	VolverButtonClick(){
+		this.router.navigate(['/home'])
+	}
 
 }
 

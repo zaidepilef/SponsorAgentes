@@ -6,7 +6,7 @@
 		<button (click)="ListoButtonClick()" mat-flat-button color="primary">Listo</button>
 	</div>
 	<div class="col-5">
-
+		<button (click)="CerrarButtonClick()" mat-flat-button color="primary">Cerrar</button>
 	</div>
 </div>
 
@@ -16,32 +16,25 @@
 	<ng-container matColumnDef="select">
 
 		<th mat-header-cell *matHeaderCellDef>
-			<mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
-				[indeterminate]="selection.hasValue() && !isAllSelected()">
-			</mat-checkbox>
+
+
+			<input type="checkbox" [(ngModel)]="todosSeleccionados" [value]="-1"
+				(change)="onChangeSelector($event)">
+
 		</th>
 
 		<td mat-cell *matCellDef="let row">
-			<mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
-				[checked]="selection.isSelected(row.seleccionado)">
-			</mat-checkbox>
+
+
+			<input type="checkbox" [value]="row.codAgente" [checked]="row.seleccionado" [disabled]="!row.habilitado"
+				(change)="onChangeSelector($event)">
 		</td>
 
-	</ng-container>
-
-	<ng-container matColumnDef="seleccionado">
-		<th mat-header-cell *matHeaderCellDef mat-sort-header>seleccionado</th>
-		<td mat-cell *matCellDef="let element"> {{element.seleccionado}} </td>
 	</ng-container>
 
 	<ng-container matColumnDef="codAgente">
 		<th mat-header-cell *matHeaderCellDef mat-sort-header>Código Agente</th>
 		<td mat-cell *matCellDef="let element"> {{element.codAgente}} </td>
-	</ng-container>
-
-	<ng-container matColumnDef="disponible">
-		<th mat-header-cell *matHeaderCellDef mat-sort-header>disponible</th>
-		<td mat-cell *matCellDef="let element"> {{element.disponible}} </td>
 	</ng-container>
 
 	<ng-container matColumnDef="rutCompletoAgente">
@@ -75,38 +68,3 @@
 </table>
 
 <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-
-
-<table width="100%" class="mat-elevation-z8">
-	<thead>
-		<tr>
-			<th>
-				<!-- custom checkbox-->
-				<input type="checkbox" [(ngModel)]="todosSeleccionados" [value]="-1"
-					(change)="onChangeSelector($event)">
-			</th>
-			<th>codAgente</th>
-			<th>disponible</th>
-			<th>habilitado</th>
-			<th>rutCompletoAgente</th>
-			<th>nombreAgente</th>
-		</tr>
-
-	</thead>
-	<tbody>
-		<tr *ngFor="let n of listaAgentes">
-			<td>
-				<!-- custom checkbox-->
-				<input type="checkbox" [value]="n.codAgente" [checked]="n.seleccionado" [disabled]="!n.habilitado"
-					(change)="onChangeSelector($event)">
-
-			</td>
-			<td>{{n.codAgente}}</td>
-			<td>{{n.disponible}}</td>
-			<td>{{n.habilitado}}</td>
-			<td>{{n.rutCompletoAgente}}</td>
-			<td>{{n.nombreAgente}}</td>
-		</tr>
-	</tbody>
-	<!-- // PAGINADOR // -->
-</table>
